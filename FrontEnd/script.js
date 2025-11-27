@@ -56,15 +56,21 @@ divFilterButtons.appendChild(buttonObjects)
 divFilterButtons.appendChild(buttonAppartments)
 divFilterButtons.appendChild(buttonHotelsRestaurants)
 
-// Boutons du filtre "Objets"
-const btnFilerObjects = document.querySelector(".filter-buttons .objects");
+// Fonction filtres
+function Filters (btnFilter, categoryName) {    
+        const galleryFiltered = works.filter(function(work) {
+            return work.category.name == categoryName
+        })
+       document.querySelector(".gallery").innerHTML = ""
+       generateWorks(galleryFiltered)
+    
+}
 
-btnFilerObjects.addEventListener("click", function() {
-     const galleryFiltered = works.filter(function(work) {
-         return work.category.name == "Objets"
+// Boutons du filtre "Objets"
+const btnFilterObjects = document.querySelector(".objects");
+
+btnFilterObjects.addEventListener("click", function() {
+     Filters (btnFilterObjects, "Objets")
      })
-    document.querySelector(".gallery").innerHTML = ""
-    generateWorks(galleryFiltered)
-})
 
 generateWorks(works)
