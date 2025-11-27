@@ -57,42 +57,63 @@ divFilterButtons.appendChild(buttonAppartments)
 divFilterButtons.appendChild(buttonHotelsRestaurants)
 
 // Fonction filtres
-function Filters (btnFilter, categoryName) {    
+function Filters (btnFilter, categoryName, activeFilter) {    
         const galleryFiltered = works.filter(function(work) {
             return work.category.name == categoryName
         })
-       document.querySelector(".gallery").innerHTML = ""
-       generateWorks(galleryFiltered)
+        updateFilter()
+        document.querySelector(".gallery").innerHTML = ""
+        generateWorks(galleryFiltered)
     
 }
 
+let activeFilter = 0
+
 // Boutons du filtre "Objets"
-const btnFilterObjects = document.querySelector(".objects");
+const btnFilterObjects = document.querySelector(".objects")
 
 btnFilterObjects.addEventListener("click", function() {
-     Filters (btnFilterObjects, "Objets")
+    activeFilter = 1
+    Filters (btnFilterObjects, "Objets")
      })
 
 // Bouton du filtre "Appartements"
-const btnFilterAppartments = document.querySelector(".appartments");
+const btnFilterAppartments = document.querySelector(".appartments")
 
 btnFilterAppartments.addEventListener("click", function() {
-     Filters (btnFilterAppartments, "Appartements")
+    activeFilter = 2 
+    Filters (btnFilterAppartments, "Appartements")
      })
 
 // Bouton du filtre "Hotels & restaurants"
-const btnFilterHR = document.querySelector(".hotels_restaurants");
+const btnFilterHR = document.querySelector(".hotels_restaurants")
 
 btnFilterHR.addEventListener("click", function() {
-     Filters (btnFilterHR, "Hotels & restaurants")
+    activeFilter = 3 
+    Filters (btnFilterHR, "Hotels & restaurants")
      })
 
 // Bouton du filtre "Tous"
 const btnFilterAll = document.querySelector(".all");
 
 btnFilterAll.addEventListener("click", function() {
+    activeFilter = 0
+    updateFilter()
     document.querySelector(".gallery").innerHTML = ""
     generateWorks(works)
     })
+
+// Apparence du filtre sélectionné
+const filterButtons = document.querySelectorAll("button")
+
+function updateFilter() {
+    filterButtons.forEach((button,index) => {
+        if (index === activeFilter) {
+            button.classList.add("active")
+        } else {
+            button.classList.remove("active")
+        }
+    })
+}
 
 generateWorks(works)
