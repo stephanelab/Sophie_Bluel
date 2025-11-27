@@ -57,7 +57,7 @@ divFilterButtons.appendChild(buttonAppartments)
 divFilterButtons.appendChild(buttonHotelsRestaurants)
 
 // Fonction filtres
-function Filters (btnFilter, categoryName, activeFilter) {    
+function Filters (categoryName) {    
         const galleryFiltered = works.filter(function(work) {
             return work.category.name == categoryName
         })
@@ -74,7 +74,7 @@ const btnFilterObjects = document.querySelector(".objects")
 
 btnFilterObjects.addEventListener("click", function() {
     activeFilter = 1
-    Filters (btnFilterObjects, "Objets")
+    Filters ("Objets")
      })
 
 // Bouton du filtre "Appartements"
@@ -82,7 +82,7 @@ const btnFilterAppartments = document.querySelector(".appartments")
 
 btnFilterAppartments.addEventListener("click", function() {
     activeFilter = 2 
-    Filters (btnFilterAppartments, "Appartements")
+    Filters ("Appartements")
      })
 
 // Bouton du filtre "Hotels & restaurants"
@@ -90,7 +90,7 @@ const btnFilterHR = document.querySelector(".hotels_restaurants")
 
 btnFilterHR.addEventListener("click", function() {
     activeFilter = 3 
-    Filters (btnFilterHR, "Hotels & restaurants")
+    Filters ("Hotels & restaurants")
      })
 
 // Bouton du filtre "Tous"
