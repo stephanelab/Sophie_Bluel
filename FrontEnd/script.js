@@ -1,5 +1,3 @@
-// const { createElement } = require("react")
-
 // Récupération des travaux depuis l'API
 const reponse = await fetch ("http://localhost:5678/api/works")
 const works = await reponse.json()
@@ -57,5 +55,16 @@ divFilterButtons.appendChild(buttonAll)
 divFilterButtons.appendChild(buttonObjects)
 divFilterButtons.appendChild(buttonAppartments)
 divFilterButtons.appendChild(buttonHotelsRestaurants)
+
+// Boutons du filtre "Objets"
+const btnFilerObjects = document.querySelector(".filter-buttons .objects");
+
+btnFilerObjects.addEventListener("click", function() {
+     const galleryFiltered = works.filter(function(work) {
+         return work.category.name == "Objets"
+     })
+    document.querySelector(".gallery").innerHTML = ""
+    generateWorks(galleryFiltered)
+})
 
 generateWorks(works)
