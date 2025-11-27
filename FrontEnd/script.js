@@ -73,4 +73,26 @@ btnFilterObjects.addEventListener("click", function() {
      Filters (btnFilterObjects, "Objets")
      })
 
+// Bouton du filtre "Appartements"
+const btnFilterAppartments = document.querySelector(".appartments");
+
+btnFilterAppartments.addEventListener("click", function() {
+     Filters (btnFilterAppartments, "Appartements")
+     })
+
+// Bouton du filtre "Hotels & restaurants"
+const btnFilterHR = document.querySelector(".hotels_restaurants");
+
+btnFilterHR.addEventListener("click", function() {
+     Filters (btnFilterHR, "Hotels & restaurants")
+     })
+
+// Bouton du filtre "Tous"
+const btnFilterAll = document.querySelector(".all");
+
+btnFilterAll.addEventListener("click", function() {
+    document.querySelector(".gallery").innerHTML = ""
+    generateWorks(works)
+    })
+
 generateWorks(works)
