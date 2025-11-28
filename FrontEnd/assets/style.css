@@ -47,19 +47,31 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
+
+/* Ajout de la propriété de couleur de fond sur la balise html */
+html {
+	background-color: white;
+}
+
 body {
-	max-width: 1140px;
+	max-width: 1440px; /* Modification de la valeur 1140px à 1440px */
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	background-color: #FFFEF8;	
 }
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	padding: 50px 150px 0 150px; /* Ajout de padding latéral pour éviter que le contenu touche les bords de l'écran */
 }
+
+main {
+	padding: 0 150px; /* Ajout de padding latéral pour éviter que le contenu touche les bords de l'écran */
+}
+
 section {
-	margin: 50px 0
+	margin: 140px 0 50px 0;
 }
 
 h1{
@@ -68,14 +80,15 @@ h1{
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: #B1663C;
+	gap: 3px; /* Ajout de l'espacement entre les deux lignes du h1 */
 }
 
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
+	text-transform: uppercase; /* Mise en majuscules */
 }
 
 h2{
@@ -88,11 +101,18 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
+	gap: 40px;
 }
+
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+}
+
+/* Modification de la taille de l'icone instagram */
+nav img {
+	width: 22px;
+	height: 22px;
 }
 
 li:hover {
@@ -108,11 +128,12 @@ li:hover {
 #introduction img {
 	display: block;
 	margin: auto;
-	width: 80%;
+	width: 100%; /* Ajustement de la largeur de l'image */
 }
 
 #introduction article {
-	flex: 1
+	flex: 1;
+	margin-left: 72px;
 }
 #introduction h2 {
 	margin-bottom: 1em;
@@ -134,7 +155,11 @@ li:hover {
 	margin: 50px 0;
 	gap : 10px;
 }
+
 .filter-buttons button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	color: #1D6154;
 	background-color: white;
 	border: 1px solid #1D6154;
@@ -144,7 +169,9 @@ li:hover {
 	font-family: 'Syne';
 	font-weight: 600;
 	font-size: 16px;
+	width: fit-content;
 }
+
 .filter-buttons button.active,
 .filter-buttons button:hover {
 	background-color: #1D6154;
@@ -165,7 +192,7 @@ li:hover {
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -209,6 +236,79 @@ input[type="submit"]{
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	margin-top: 2em; /* adaptation des marges */
 }
 
+footer nav li {
+	padding: 24px 0px;
+	font-size: 1em;
+}
+
+/* Page de connexion */
+#login-section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 30px;
+	margin: 150px 0 355px 0;
+}
+
+#login-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 30px;	
+}
+
+footer {
+	background-color: white;
+	padding: 0 100px; /* Ajout de padding latéral pour éviter que le contenu touche les bords de l'écran */
+}
+
+a {	
+  text-decoration: none;
+  color: inherit;
+}
+
+#selected_link {
+  font-weight: bold;
+}
+
+#email {
+  width: 379px;
+  height: 40px;
+  font-size: 16px;
+  padding: 5px 10px;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  border: none;
+}
+
+#password {
+  width: 379px;
+  height: 40px;
+  font-size: 16px;
+  padding: 5px 10px;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  border: none;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+button {
+	width: 179px;
+  	height: 36px;
+  	font-family: 'Syne';
+  	font-weight: 700;
+  	color: white;
+	background-color: #1D6154;
+	border: none;
+	border-radius: 60px;
+}
+
+#login-section p {
+	text-decoration: underline;
+}
