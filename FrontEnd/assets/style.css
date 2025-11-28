@@ -58,17 +58,20 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
-	background-color: #FFFEF8;
-	padding: 0 150px; /* Ajout de padding latéral pour éviter que le contenu touche les bords de l'écran */
+	background-color: #FFFEF8;	
 }
 header {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 50px;
-	padding: 50px;
+	padding: 50px 150px 0 150px; /* Ajout de padding latéral pour éviter que le contenu touche les bords de l'écran */
 }
+
+main {
+	padding: 0 150px; /* Ajout de padding latéral pour éviter que le contenu touche les bords de l'écran */
+}
+
 section {
-	margin: 50px 0
+	margin: 140px 0 50px 0;
 }
 
 h1{
@@ -125,11 +128,12 @@ li:hover {
 #introduction img {
 	display: block;
 	margin: auto;
-	width: 80%;
+	width: 100%; /* Ajustement de la largeur de l'image */
 }
 
 #introduction article {
-	flex: 1
+	flex: 1;
+	margin-left: 72px;
 }
 #introduction h2 {
 	margin-bottom: 1em;
@@ -153,6 +157,9 @@ li:hover {
 }
 
 .filter-buttons button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	color: #1D6154;
 	background-color: white;
 	border: 1px solid #1D6154;
@@ -185,7 +192,7 @@ li:hover {
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -229,11 +236,11 @@ input[type="submit"]{
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em 2em 0 2em; /* adaptation des marges */
+	margin-top: 2em; /* adaptation des marges */
 }
 
 footer nav li {
-	padding: 24px 80px;
+	padding: 24px 0px;
 	font-size: 1em;
 }
 
@@ -255,12 +262,16 @@ footer nav li {
 
 footer {
 	background-color: white;
+	padding: 0 100px; /* Ajout de padding latéral pour éviter que le contenu touche les bords de l'écran */
+}
+
+a {	
+  text-decoration: none;
+  color: inherit;
 }
 
 #selected_link {
   font-weight: bold;
-  text-decoration: none;
-  color: inherit;
 }
 
 #email {
