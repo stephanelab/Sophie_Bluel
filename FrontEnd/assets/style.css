@@ -154,6 +154,21 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
+/* Ajout css sur nouvelle classe projects */
+.projects {
+	position: relative;
+	text-align: center;
+}
+
+.modification-button {
+	all: unset;
+	position: absolute;
+	left: 50%;
+    transform: translateX(120px) translateY(-50%);
+    top: 50%;
+}
+
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;

@@ -132,7 +132,14 @@ if (token) {
     // Effacement des filtres
     const filterDiv = document.querySelector(".filter-buttons")
     filterDiv.style.display = "none"
-    
+
+    // Ajout du bouton de modification
+    const modificationButton = document.createElement("button")
+    modificationButton.classList.add("modification-button")
+    modificationButton.innerHTML = `<i class="fa-regular fa-pen-to-square"></i> modifier`
+    const projectDiv= document.querySelector(".projects")
+    projectDiv.appendChild(modificationButton)
+
     console.log(token)
 } else {
     console.log("Pas de token")
