@@ -128,12 +128,18 @@ if (token) {
     const loginText = document.getElementById("loginLink")
     loginText.innerText = "logout"
     loginText.href = "#"
-    loginText.addEventListener("click", function() {
-        localStorage.removeItem("token")
-    })
     console.log(token)
 } else {
     console.log("Pas de token")
 }
+
+// Déconnexion
+const loginLink = document.getElementById("loginLink")
+loginLink.addEventListener("click", function(event) {
+    if (token) {
+        localStorage.removeItem("token")
+        window.location.href = "index.html"
+    }
+})
 
 generateWorks(works)
