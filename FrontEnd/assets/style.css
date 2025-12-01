@@ -66,10 +66,11 @@ header .header-container{
 	padding: 50px 150px 0 150px; /* Ajout de padding latéral pour éviter que le contenu touche les bords de l'écran */
 }
 
+/* Ajout de css sur la barre de mode édition */
 .mode-edition-bar {
 	background-color: black;
 	color: white;
-	padding: 20px 0; /* Ajout de padding latéral pour éviter que le contenu touche les bords de l'écran */
+	padding: 20px 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;

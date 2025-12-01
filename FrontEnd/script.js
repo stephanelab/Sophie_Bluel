@@ -118,14 +118,20 @@ function updateFilter() {
 
 const token = localStorage.getItem("token")
 if (token) {
-    console.log(token)
     // Ajout de la barre "Mode édition"
     const modeEditionBar = document.createElement("div")
     modeEditionBar.innerHTML = `<i class="fa-regular fa-pen-to-square"></i> Mode édition`
     modeEditionBar.classList.add("mode-edition-bar")
     document.querySelector("header").insertBefore(modeEditionBar, document.querySelector(".header-container"))
 
-    
+    // Modification de login en logout
+    const loginText = document.getElementById("loginLink")
+    loginText.innerText = "logout"
+    loginText.href = "#"
+    loginText.addEventListener("click", function() {
+        localStorage.removeItem("token")
+    })
+    console.log(token)
 } else {
     console.log("Pas de token")
 }
