@@ -60,10 +60,21 @@ body {
 	font-size: 14px;
 	background-color: #FFFEF8;	
 }
-header {
+header .header-container{
 	display: flex;
 	justify-content: space-between;
 	padding: 50px 150px 0 150px; /* Ajout de padding latéral pour éviter que le contenu touche les bords de l'écran */
+}
+
+.mode-edition-bar {
+	background-color: black;
+	color: white;
+	padding: 20px 0; /* Ajout de padding latéral pour éviter que le contenu touche les bords de l'écran */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 16px;
+	gap: 10px;
 }
 
 main {

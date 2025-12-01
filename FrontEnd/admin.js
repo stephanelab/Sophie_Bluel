@@ -11,6 +11,7 @@ connexion.addEventListener("submit", async function(event) {
 
     // Envoi de la requête POST au serveur
     let token = ""
+    localStorage.setItem("token", token)
     try {
         const response = await fetch("http://localhost:5678/api/users/login", {
         method: "POST",
