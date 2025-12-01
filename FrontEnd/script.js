@@ -117,6 +117,41 @@ function updateFilter() {
 }
 
 const token = localStorage.getItem("token")
-console.log(token)
+if (token) {
+    // Ajout de la barre "Mode édition"
+    const modeEditionBar = document.createElement("div")
+    modeEditionBar.innerHTML = `<i class="fa-regular fa-pen-to-square"></i> Mode édition`
+    modeEditionBar.classList.add("mode-edition-bar")
+    document.querySelector("header").insertBefore(modeEditionBar, document.querySelector(".header-container"))
+
+    // Modification de login en logout
+    const loginText = document.getElementById("loginLink")
+    loginText.innerText = "logout"
+    loginText.href = "#"
+
+    // Effacement des filtres
+    const filterDiv = document.querySelector(".filter-buttons")
+    filterDiv.style.display = "none"
+
+    // Ajout du bouton de modification
+    const modificationButton = document.createElement("button")
+    modificationButton.classList.add("modification-button")
+    modificationButton.innerHTML = `<i class="fa-regular fa-pen-to-square"></i> modifier`
+    const projectDiv= document.querySelector(".projects")
+    projectDiv.appendChild(modificationButton)
+
+    console.log(token)
+} else {
+    console.log("Pas de token")
+}
+
+// Déconnexion
+const loginLink = document.getElementById("loginLink")
+loginLink.addEventListener("click", function(event) {
+    if (token) {
+        localStorage.removeItem("token")
+        window.location.href = "index.html"
+    }
+})
 
 generateWorks(works)
