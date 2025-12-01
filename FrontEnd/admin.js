@@ -26,12 +26,15 @@ connexion.addEventListener("submit", async function(event) {
         window.location.href = "index.html"
     } catch (error) {
         console.error("Erreur lors de la requête :", error)
-        // Ajout des boutons de filtre des travaux
-        const texteErreur = document.createElement("p")
-        texteErreur.style.color = "red"
-        texteErreur.style.fontSize = "18px"
-        texteErreur.style.textDecoration = "none"
-        texteErreur.innerText = "Utilisateur ou mot de passe incorrect"
-        document.querySelector("#login-section").insertBefore(texteErreur, document.querySelector("p"))
+        // Ajout du message d'erreur dans le DOM
+        let texteErreur = document.createElement("p")
+        if (!document.querySelector(".messageErreur")) {        
+            texteErreur.style.color = "red"
+            texteErreur.style.fontSize = "18px"
+            texteErreur.style.textDecoration = "none"
+            texteErreur.classList.add("messageErreur")
+            texteErreur.innerText = "Utilisateur ou mot de passe incorrect"
+            document.querySelector("#login-section").insertBefore(texteErreur, document.querySelector("p"))
+        }
     }
 })
