@@ -128,6 +128,11 @@ if (token) {
     const loginText = document.getElementById("loginLink")
     loginText.innerText = "logout"
     loginText.href = "#"
+
+    // Effacement des filtres
+    const filterDiv = document.querySelector(".filter-buttons")
+    filterDiv.style.display = "none"
+    
     console.log(token)
 } else {
     console.log("Pas de token")
