@@ -116,4 +116,7 @@ function updateFilter() {
     })
 }
 
+const token = localStorage.getItem("token")
+console.log(token)
+
 generateWorks(works)
