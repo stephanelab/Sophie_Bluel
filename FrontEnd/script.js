@@ -121,7 +121,7 @@ function updateFilter() {
     })
 }
 
-const token = localStorage.getItem("token")
+const token = sessionStorage.getItem("token")
 if (token) {
     // Ajout de la barre "Mode édition"
     const modeEditionBar = document.createElement("div")
@@ -157,7 +157,7 @@ if (token) {
 const loginLink = document.getElementById("loginLink")
 loginLink.addEventListener("click", function(event) {
     if (token) {
-        localStorage.removeItem("token")
+        sessionStorage.removeItem("token")
         window.location.href = "index.html"
     }
 })

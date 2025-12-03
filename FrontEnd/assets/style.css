@@ -54,7 +54,7 @@ html {
 }
 
 body {
-	max-width: 1440px; /* Modification de la valeur 1140px à 1440px */
+	/* max-width: 1140px; Suppression du max-width */
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
@@ -79,7 +79,7 @@ header .header-container{
 }
 
 main {
-	padding: 0 150px; /* Ajout de padding latéral pour éviter que le contenu touche les bords de l'écran */
+	padding: 0 245px; /* Ajout de padding latéral pour éviter que le contenu touche les bords de l'écran */
 }
 
 section {

@@ -31,15 +31,18 @@ function closeModal() {
     modP = null
 }
 
+// Empêcher la fermeture de la modale au clic dans la fenêtre modale
 const stopPropagation = function (e) {
     e.stopPropagation()
 }
 
+// Fonction changement de page dans la modale
 function changementDePage(index) {
     pageModal = index
     gestionPagesModal()
 }
 
+// Retour sur la 1ère page de la modale
 const backModalIcon = document.querySelector(".leftArrow")
 backModalIcon.addEventListener("click", function() {
     changementDePage(1)
@@ -60,16 +63,19 @@ function gestionPagesModal() {
             const oldBtn = modalWrapper.querySelector(".btn-add-photo")
             if (oldBtn) oldBtn.remove()
 
+            // Création de la liste d’images dans la modale
             const imagesContainerModal = document.createElement("div")
             imagesContainerModal.classList.add("liste-image-modal")
             for (let i = 0; i < imagesModal.length; i++) {
                 const figure = document.createElement("figure")
                 figure.classList.add("figure-modal")
 
+                // Création de l'image
                 const img = document.createElement("img")
                 img.src = imagesModal[i].imageUrl
                 figure.appendChild(img)
 
+                // Création de l'icône de suppression
                 const icone = document.createElement("i")
                 icone.classList.add("fa-solid", "fa-trash-can", "icon-delete")
                 figure.appendChild(icone)
@@ -77,6 +83,8 @@ function gestionPagesModal() {
                 imagesContainerModal.appendChild(figure)
             }
             modalWrapper.appendChild(imagesContainerModal)
+
+            // Création du bouton Ajouter une photo
             const btnAddPhoto = document.createElement("button")
             btnAddPhoto.classList.add("btn-add-photo")
             btnAddPhoto.innerText = "Ajouter une photo"
@@ -97,6 +105,36 @@ function gestionPagesModal() {
             
             // Réaffichage de la flèche gauche sur la première page de la modale
             backModalIcon.classList.add("fa-arrow-left")
+
+            // Modif du texte du h3
+            const modalH3 = document.querySelector(".modal-wrapper h3")
+            modalH3.innerText = "Ajout photo"
+
+            //Création du formulaire d'ajout de photo
+            const modalWrapperP2 = document.querySelector(".modal-wrapper")
+
+            const formAddPhoto = document.createElement("form")
+            formAddPhoto.classList.add("form-add-photo")
+            modalWrapperP2.appendChild(formAddPhoto)
+
+            // Champ input type fichier pour l'image
+            const inputFile = document.createElement("input")
+            inputFile.type = "file"
+            inputFile.accept = "image/png, image/jpeg"
+            inputFile.id = "image-file"
+            formAddPhoto.appendChild(inputFile)
+
+            // Champ input type texte pour le titre
+            const divTitle = document.createElement("div")
+            formAddPhoto.appendChild(divTitle)
+            const labelTitle = document.createElement("label")
+            labelTitle.innerText = "Titre"
+            divTitle.appendChild(labelTitle)
+            const inputTitle = document.createElement("input")
+            inputTitle.type = "text"
+            inputTitle.id = "image-title"
+            divTitle.appendChild(inputTitle)
+
             break
         default:
             break
