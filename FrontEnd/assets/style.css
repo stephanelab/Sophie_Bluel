@@ -387,15 +387,31 @@ button {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	gap: 10px;
-	width: calc(100%-75px);
 	padding-bottom: 50px;
-	margin: 0 105px;
+	margin: 0 75px;
 	border-bottom: 1px solid #B3B3B3;
 }
 
 .liste-image-modal img {
 	width: 100%;
 	height: auto;
-	margin: 10px;
 	object-fit: cover;
+	display: block;
+}
+
+.figure-modal {
+	position: relative;
+	display: inline-block;
+}
+
+.icon-delete {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	cursor: pointer;
+	color: white;
+	background-color: black;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 11px;
 }

@@ -36,9 +36,18 @@ const modalWrapper = document.querySelector(".modal-wrapper")
 const imagesContainerModal = document.createElement("div")
 imagesContainerModal.classList.add("liste-image-modal")
 for (let i = 0; i < imagesModal.length; i++) {
+    const figure = document.createElement("figure")
+    figure.classList.add("figure-modal")
+
     const img = document.createElement("img")
     img.src = imagesModal[i].imageUrl
-    imagesContainerModal.appendChild(img)
+    figure.appendChild(img)
+
+    const icone = document.createElement("i")
+    icone.classList.add("fa-solid", "fa-trash-can", "icon-delete")
+    figure.appendChild(icone)
+    
+    imagesContainerModal.appendChild(figure)
 }
 modalWrapper.appendChild(imagesContainerModal)
 const btnAddPhoto = document.createElement("button")

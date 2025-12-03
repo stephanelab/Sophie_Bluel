@@ -28,21 +28,11 @@ export function generateWorks(works) {
         imageElement.src = work.imageUrl
         captionElement.innerText = work.title
 
-        // const imageClone = imageElement.cloneNode(true)
-        // imagesModal.push(imageClone)
-
         // Ajout des éléments dans le DOM
         gallery.appendChild(workElement)
         workElement.appendChild(imageElement)
         workElement.appendChild(captionElement)
-        
-        // Enregistrement des travaux en local pour la modale
-
-        // Ajout des images dans la modale
-        // 
-        // listeImageModal.appendChild(imageClone)
     }
-    // return imagesModal
 }
 
 // Ajout des boutons de filtre des travaux
