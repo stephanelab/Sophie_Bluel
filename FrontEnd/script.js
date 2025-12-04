@@ -35,37 +35,36 @@ export function generateWorks(works) {
     }
 }
 
-// Ajout des boutons de filtre des travaux
-const divFilterButtons = document.createElement("div")
-divFilterButtons.classList.add("filter-buttons")
-document.querySelector("#portfolio").insertBefore(divFilterButtons, document.querySelector(".gallery"))
+// Récupération des catégories depuis l'API
+const reponseCategories = await fetch ("http://localhost:5678/api/categories")
+const categories = await reponseCategories.json()
 
+// Fonction d'affichage des boutons de filtre des travaux
+function createFilterButtons() {
+    const divFilterButtons = document.createElement("div")
+    divFilterButtons.classList.add("filter-buttons")
+    document.querySelector("#portfolio").insertBefore(divFilterButtons, document.querySelector(".gallery"))
 
-const buttonAll = document.createElement("button")
-buttonAll.classList.add("all", "active")
-buttonAll.innerText = "Tous"
+    const buttonAll = document.createElement("button")
+    buttonAll.classList.add("all", "active")
+    buttonAll.innerText = "Tous"    
+    divFilterButtons.appendChild(buttonAll)
 
-const buttonObjects = document.createElement("button")
-buttonObjects.classList.add("objects")
-buttonObjects.innerText = "Objets"
+    for (let i = 0; i < categories.length; i++) {
+        const category = categories[i]
+        const buttonCategory = document.createElement("button")
+        buttonCategory.classList.add("category_" + category.id)
+        buttonCategory.innerText = category.name
+        divFilterButtons.appendChild(buttonCategory)
+    }
+}
 
-const buttonAppartments = document.createElement("button")
-buttonAppartments.classList.add("appartments")
-buttonAppartments.innerText = "Appartements"
-
-const buttonHotelsRestaurants = document.createElement("button")
-buttonHotelsRestaurants.classList.add("hotels_restaurants")
-buttonHotelsRestaurants.innerText = "Hotels & restaurants"
-
-divFilterButtons.appendChild(buttonAll)
-divFilterButtons.appendChild(buttonObjects)
-divFilterButtons.appendChild(buttonAppartments)
-divFilterButtons.appendChild(buttonHotelsRestaurants)
+createFilterButtons()
 
 // Fonction filtres
-function Filters (categoryName) {    
+function filters (categoryId) {    
     const galleryFiltered = works.filter(function(work) {
-        return work.category.name == categoryName
+        return work.category.id == categoryId
     })
     updateFilter()
     document.querySelector(".gallery").innerHTML = ""
@@ -74,29 +73,16 @@ function Filters (categoryName) {
 
 let activeFilter = 0
 
-// Boutons du filtre "Objets"
-const btnFilterObjects = document.querySelector(".objects")
+// Ajout des écouteurs d'événements aux boutons de filtre selon les catégories récupérées
+for (let j = 0; j < categories.length; j++) {
+    const category = categories[j]
+    const buttonCategory = document.querySelector(".category_" + category.id)
 
-btnFilterObjects.addEventListener("click", function() {
-    activeFilter = 1
-    Filters ("Objets")
-})
-
-// Bouton du filtre "Appartements"
-const btnFilterAppartments = document.querySelector(".appartments")
-
-btnFilterAppartments.addEventListener("click", function() {
-    activeFilter = 2 
-    Filters ("Appartements")
-})
-
-// Bouton du filtre "Hotels & restaurants"
-const btnFilterHR = document.querySelector(".hotels_restaurants")
-
-btnFilterHR.addEventListener("click", function() {
-    activeFilter = 3 
-    Filters ("Hotels & restaurants")
-})
+    buttonCategory.addEventListener("click", function() {
+        activeFilter = j + 1
+        filters (category.id)
+    })
+}
 
 // Bouton du filtre "Tous"
 const btnFilterAll = document.querySelector(".all");
@@ -161,5 +147,6 @@ loginLink.addEventListener("click", function(event) {
         window.location.href = "index.html"
     }
 })
+
 
 generateWorks(works)
