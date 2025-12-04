@@ -1,11 +1,15 @@
 import { openModal } from "./modal.js";
 
 // Récupération des travaux depuis l'API
-const reponse = await fetch ("http://localhost:5678/api/works")
-const works = await reponse.json()
+export async function fetchWorks() {
+    const reponse = await fetch ("http://localhost:5678/api/works")
+    return await reponse.json()
+}
 
 // Enregistrement des travaux en local pour la modale
-localStorage.setItem("works", JSON.stringify(works))
+// localStorage.setItem("works", JSON.stringify(works))
+
+const works = await fetchWorks()
 
 // Génération des travaux dans la galerie
 export function generateWorks(works) {

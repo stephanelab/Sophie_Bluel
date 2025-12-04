@@ -1,6 +1,9 @@
 // Récupération des travaux enregistrés dans le localStorage
-const imagesModalJSON = localStorage.getItem("works")
-let imagesModal = JSON.parse(imagesModalJSON)
+// const imagesModalJSON = localStorage.getItem("works")
+// let imagesModal = JSON.parse(imagesModalJSON)
+import { fetchWorks } from "./script.js";
+
+const imagesModal = await fetchWorks()
 
 let modP = null
 let pageModal = 0
