@@ -77,6 +77,39 @@ async function deleteWork(workId) {
     gestionPagesModal()
 }
 
+
+// fonction envoi du formulaire
+async function submitForm(token, formData) {
+    try {
+        const response = await fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+            body: formData
+        })
+        const data = await response.json()
+        
+        //Effacement du formulaire d'ajout de photo
+        const formP2 = document.querySelector(".form-add-photo")
+        if (formP2) formP2.remove()
+        
+        // Actualisation de la page
+        imagesModal = await fetchWorks()
+        gestionPagesModal()
+
+        // Ajout du message de succès
+        const modalWrapper = document.querySelector(".modal-wrapper")
+        const successMessage = document.createElement("p")
+        successMessage.classList.add("success-message")
+        successMessage.innerText = "Photo "  + data.title + " ajoutée avec succès !"
+        modalWrapper.appendChild(successMessage)
+        
+    } catch (error) {
+        console.error("Erreur :", error)
+    }
+}
+
 // Création des éléments de la modale
 function gestionPagesModal() {    
     switch (pageModal) {
@@ -244,6 +277,21 @@ function gestionPagesModal() {
             btnSubmit.classList.add("btn-submit-photo")
             btnSubmit.innerText = "Valider"
             formAddPhoto.appendChild(btnSubmit)
+            
+            // Envoi du formulaire d'ajout de photo vers l'API
+            const form = document.querySelector(".form-add-photo")
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault()
+                const token = sessionStorage.getItem("token")
+                const formData = new FormData()
+                formData.append("image", document.getElementById("image-file").files[0])
+                formData.append("title", document.getElementById("image-title").value)
+                formData.append("category", document.getElementById("image-category").value)
+                // for (const [key, value] of formData.entries()) {
+                // console.log(key, value);
+                // }
+                await submitForm(token, formData)
+            })
 
             break
         default:
