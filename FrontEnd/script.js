@@ -40,8 +40,12 @@ export function generateWorks(works) {
 }
 
 // Récupération des catégories depuis l'API
-const reponseCategories = await fetch ("http://localhost:5678/api/categories")
-const categories = await reponseCategories.json()
+export async function fetchCategories() {
+    const reponse = await fetch ("http://localhost:5678/api/categories")
+    return await reponse.json()
+}
+
+const categories = await fetchCategories()
 
 // Fonction d'affichage des boutons de filtre des travaux
 function createFilterButtons() {

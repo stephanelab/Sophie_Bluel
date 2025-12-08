@@ -1,9 +1,9 @@
 // Récupération des travaux enregistrés dans le localStorage
-// const imagesModalJSON = localStorage.getItem("works")
-// let imagesModal = JSON.parse(imagesModalJSON)
 import { fetchWorks } from "./script.js";
-
 const imagesModal = await fetchWorks()
+
+import { fetchCategories } from "./script.js";
+const categories = await fetchCategories()
 
 let modP = null
 let pageModal = 0
@@ -31,6 +31,8 @@ function closeModal() {
     modal.removeEventListener("click", closeModal)
     modal.querySelector(".fa-xmark").removeEventListener("click", closeModal)
     modal.querySelector(".modal-wrapper").removeEventListener("click", stopPropagation)
+    const formP2 = document.querySelector(".form-add-photo")
+    if (formP2) formP2.remove()
     modP = null
 }
 
@@ -48,6 +50,10 @@ function changementDePage(index) {
 // Retour sur la 1ère page de la modale
 const backModalIcon = document.querySelector(".leftArrow")
 backModalIcon.addEventListener("click", function() {
+    const formP2 = document.querySelector(".form-add-photo")
+    if (formP2) formP2.remove()
+    const modalH3 = document.querySelector(".modal-wrapper h3")
+    modalH3.innerText = "Galerie photo"
     changementDePage(1)
 })
 
@@ -105,7 +111,7 @@ function gestionPagesModal() {
             break
         case 2:
             console.log (pageModal)
-            
+
             // Réaffichage de la flèche gauche sur la première page de la modale
             backModalIcon.classList.add("fa-arrow-left")
 
@@ -121,14 +127,72 @@ function gestionPagesModal() {
             modalWrapperP2.appendChild(formAddPhoto)
 
             // Champ input type fichier pour l'image
+            // const inputFile = document.createElement("input")
+            // inputFile.type = "file"
+            // inputFile.accept = "image/png, image/jpeg"
+            // inputFile.id = "image-file"
+            // formAddPhoto.appendChild(inputFile)
+
+            // Zone complète de l'upload
+            const divUpload = document.createElement("div")
+            divUpload.classList.add("upload-zone")
+            formAddPhoto.appendChild(divUpload)
+
+            // Icône image
+            const uploadIcon = document.createElement("i")
+            uploadIcon.classList.add("fa-regular", "fa-image")
+            uploadIcon.classList.add("upload-icon")
+            divUpload.appendChild(uploadIcon)
+
+            // Bouton "Ajouter photo"
+            const btnAddPhotoUp = document.createElement("label")
+            btnAddPhotoUp.innerText = "+ Ajouter photo"
+            btnAddPhotoUp.classList.add("but-add-photo")
+            btnAddPhotoUp.setAttribute("for", "image-file")
+            divUpload.appendChild(btnAddPhotoUp)
+
+            // Info formats
+            const infoText = document.createElement("p")
+            infoText.innerText = "jpg, png : 4mo max"
+            infoText.classList.add("info-text")
+            divUpload.appendChild(infoText)
+
+            // L'input file (invisible)
             const inputFile = document.createElement("input")
             inputFile.type = "file"
             inputFile.accept = "image/png, image/jpeg"
             inputFile.id = "image-file"
+            inputFile.style.display = "none"
             formAddPhoto.appendChild(inputFile)
+
+            // Image de preview (invisible au début)
+            const previewImg = document.createElement("img")
+            previewImg.classList.add("preview-img")
+            previewImg.style.display = "none"
+            divUpload.appendChild(previewImg)
+
+
+            // Gestion de l'affichage du preview
+            inputFile.addEventListener("change", () => {
+                const file = inputFile.files[0]
+                if (!file) return
+
+                const reader = new FileReader()
+                reader.onload = e => {
+                    previewImg.src = e.target.result
+                    previewImg.style.display = "block"
+
+                    // On cache les éléments inutiles après l'upload
+                    uploadIcon.style.display = "none"
+                    btnAddPhotoUp.style.display = "none"
+                    infoText.style.display = "none"
+                }
+                reader.readAsDataURL(file)
+            })
 
             // Champ input type texte pour le titre
             const divTitle = document.createElement("div")
+            divTitle.classList.add("field")
             formAddPhoto.appendChild(divTitle)
             const labelTitle = document.createElement("label")
             labelTitle.innerText = "Titre"
@@ -137,6 +201,33 @@ function gestionPagesModal() {
             inputTitle.type = "text"
             inputTitle.id = "image-title"
             divTitle.appendChild(inputTitle)
+
+            // Champ select pour la catégorie
+            const divCategory = document.createElement("div")
+            divCategory.classList.add("field", "category-field")
+            formAddPhoto.appendChild(divCategory)
+            const labelCategory = document.createElement("label")
+            labelCategory.innerText = "Catégorie"
+            divCategory.appendChild(labelCategory)
+            const selectCategory = document.createElement("select")
+            selectCategory.id = "image-category"
+            divCategory.appendChild(selectCategory)
+            for (let i = 0; i < categories.length; i++) {
+                const category = categories[i]
+                const optionCategory = document.createElement("option")
+                optionCategory.value = category.id
+                optionCategory.innerText = category.name
+                selectCategory.appendChild(optionCategory)
+            }
+
+            selectCategory.selectedIndex = -1 // Pas de sélection par défaut
+
+            // Bouton Valider
+            const btnSubmit = document.createElement("button")
+            btnSubmit.type = "submit"
+            btnSubmit.classList.add("btn-submit-photo")
+            btnSubmit.innerText = "Valider"
+            formAddPhoto.appendChild(btnSubmit)
 
             break
         default:
