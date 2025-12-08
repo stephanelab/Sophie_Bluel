@@ -1,6 +1,6 @@
-// Récupération des travaux enregistrés dans le localStorage
-import { fetchWorks } from "./script.js";
-const imagesModal = await fetchWorks()
+// Récupération des travaux et des catégories via l'API'
+import { fetchWorks, generateWorks } from "./script.js";
+let imagesModal = await fetchWorks()
 
 import { fetchCategories } from "./script.js";
 const categories = await fetchCategories()
@@ -34,6 +34,10 @@ function closeModal() {
     const formP2 = document.querySelector(".form-add-photo")
     if (formP2) formP2.remove()
     modP = null
+    // Rechargement des travaux dans la galerie principale après fermeture de la modale
+    const oldgallery = document.querySelector(".gallery")
+    oldgallery.innerHTML = ""
+    generateWorks(imagesModal)
 }
 
 // Empêcher la fermeture de la modale au clic dans la fenêtre modale
@@ -57,11 +61,26 @@ backModalIcon.addEventListener("click", function() {
     changementDePage(1)
 })
 
+// Fonction de suppression d'un travail via l'API
+async function deleteWork(workId) {
+    const token = sessionStorage.getItem("token")    
+    const response = await fetch(`http://localhost:5678/api/works/${workId}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+    if (!response.ok) {
+        throw new Error("Erreur lors de la suppression du travail")
+    }
+    imagesModal = await fetchWorks()
+    gestionPagesModal()
+}
+
 // Création des éléments de la modale
 function gestionPagesModal() {    
     switch (pageModal) {
         case 1:
-            console.log (pageModal)
             const modalWrapper = document.querySelector(".modal-wrapper")
 
             // 🧹 Supprimer ANCIENNE liste d’images (si elle existe)
@@ -87,6 +106,11 @@ function gestionPagesModal() {
                 // Création de l'icône de suppression
                 const icone = document.createElement("i")
                 icone.classList.add("fa-solid", "fa-trash-can", "icon-delete")
+                icone.dataset.id = imagesModal[i].id // Ajout de l'ID du travail à l'icône
+                icone.addEventListener("click", () => {
+                    const workId = icone.dataset.id
+                    deleteWork(workId)
+                })
                 figure.appendChild(icone)
 
                 imagesContainerModal.appendChild(figure)
@@ -110,7 +134,6 @@ function gestionPagesModal() {
             })
             break
         case 2:
-            console.log (pageModal)
 
             // Réaffichage de la flèche gauche sur la première page de la modale
             backModalIcon.classList.add("fa-arrow-left")
@@ -125,13 +148,6 @@ function gestionPagesModal() {
             const formAddPhoto = document.createElement("form")
             formAddPhoto.classList.add("form-add-photo")
             modalWrapperP2.appendChild(formAddPhoto)
-
-            // Champ input type fichier pour l'image
-            // const inputFile = document.createElement("input")
-            // inputFile.type = "file"
-            // inputFile.accept = "image/png, image/jpeg"
-            // inputFile.id = "image-file"
-            // formAddPhoto.appendChild(inputFile)
 
             // Zone complète de l'upload
             const divUpload = document.createElement("div")
