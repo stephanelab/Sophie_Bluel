@@ -482,3 +482,9 @@ button {
 	gap: 30px;	
 	margin: 0 75px;
 }
+
+.success-message {
+	color: red;
+	font-size: 16px;
+	margin-top: 20px;
+}
