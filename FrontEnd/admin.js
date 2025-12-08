@@ -11,7 +11,7 @@ connexion.addEventListener("submit", async function(event) {
 
     // Envoi de la requête POST au serveur
     let token = ""
-    localStorage.setItem("token", token)
+    sessionStorage.setItem("token", token)
     try {
         const response = await fetch("http://localhost:5678/api/users/login", {
         method: "POST",
@@ -19,11 +19,11 @@ connexion.addEventListener("submit", async function(event) {
         body: loginDataJson
         })
         if (!response.ok) {
-            throw new Error("Utilisateur ou mot de passe incorrect")
+            throw new Error("Erreur dans l’identifiant ou le mot de passe")
         }
         const Data = await response.json()
         token = Data.token
-        localStorage.setItem("token", token)
+        sessionStorage.setItem("token", token)
         window.location.href = "index.html"
     } catch (error) {
         console.error("Erreur lors de la requête :", error)
@@ -34,7 +34,7 @@ connexion.addEventListener("submit", async function(event) {
             texteErreur.style.fontSize = "18px"
             texteErreur.style.textDecoration = "none"
             texteErreur.classList.add("messageErreur")
-            texteErreur.innerText = "Utilisateur ou mot de passe incorrect"
+            texteErreur.innerText = "Erreur dans l’identifiant ou le mot de passe"
             document.querySelector("#login-section").insertBefore(texteErreur, document.querySelector("p"))
         }
     }
