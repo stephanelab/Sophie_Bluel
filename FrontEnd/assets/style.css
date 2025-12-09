@@ -478,7 +478,7 @@ button {
   	border-bottom: 1px solid #B3B3B3;
 }
 
-.btn-submit-photo {
+.btn-submit-photo:disabled {
     background: #A7A7A7;
     color: white;
 }
