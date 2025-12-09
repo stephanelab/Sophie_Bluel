@@ -33,6 +33,8 @@ function closeModal() {
     modal.querySelector(".modal-wrapper").removeEventListener("click", stopPropagation)
     const formP2 = document.querySelector(".form-add-photo")
     if (formP2) formP2.remove()
+    const successMessage = document.querySelector(".success-message")
+    if (successMessage) successMessage.remove()
     modP = null
     // Rechargement des travaux dans la galerie principale après fermeture de la modale
     const oldgallery = document.querySelector(".gallery")
@@ -56,6 +58,8 @@ const backModalIcon = document.querySelector(".leftArrow")
 backModalIcon.addEventListener("click", function() {
     const formP2 = document.querySelector(".form-add-photo")
     if (formP2) formP2.remove()
+    const successMessage = document.querySelector(".success-message")
+    if (successMessage) successMessage.remove()
     const modalH3 = document.querySelector(".modal-wrapper h3")
     modalH3.innerText = "Galerie photo"
     changementDePage(1)
@@ -108,6 +112,24 @@ async function submitForm(token, formData) {
     } catch (error) {
         console.error("Erreur :", error)
     }
+}
+
+// Fonction de validation de formulaire
+function validateForm() {
+    const inputFile = document.getElementById("image-file")
+    const inputTitle = document.getElementById("image-title")
+    const selectCategory = document.getElementById("image-category")
+    const btnSubmit = document.querySelector(".btn-submit-photo")
+    if (inputFile.files.length > 0 && inputTitle.value.trim() !== "" && selectCategory.value !== "") {
+        console.log(selectCategory.value)
+        btnSubmit.disabled = false
+    } else {
+        btnSubmit.disabled = true
+    }
+    // Écoute des changements dans les champs du formulaire
+    inputFile.addEventListener("change", validateForm)
+    inputTitle.addEventListener("input", validateForm)
+    selectCategory.addEventListener("change", validateForm)
 }
 
 // Création des éléments de la modale
@@ -280,6 +302,7 @@ function gestionPagesModal() {
             
             // Envoi du formulaire d'ajout de photo vers l'API
             const form = document.querySelector(".form-add-photo")
+            validateForm() // Initialisation de l'état du bouton submit
             form.addEventListener("submit", async (event) => {
                 event.preventDefault()
                 const token = sessionStorage.getItem("token")
@@ -287,9 +310,6 @@ function gestionPagesModal() {
                 formData.append("image", document.getElementById("image-file").files[0])
                 formData.append("title", document.getElementById("image-title").value)
                 formData.append("category", document.getElementById("image-category").value)
-                // for (const [key, value] of formData.entries()) {
-                // console.log(key, value);
-                // }
                 await submitForm(token, formData)
             })
 
