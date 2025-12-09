@@ -36,10 +36,6 @@ function closeModal() {
     const successMessage = document.querySelector(".success-message")
     if (successMessage) successMessage.remove()
     modP = null
-    // Rechargement des travaux dans la galerie principale après fermeture de la modale
-    const oldgallery = document.querySelector(".gallery")
-    oldgallery.innerHTML = ""
-    generateWorks(imagesModal)
 }
 
 // Empêcher la fermeture de la modale au clic dans la fenêtre modale
@@ -79,6 +75,11 @@ async function deleteWork(workId) {
     }
     imagesModal = await fetchWorks()
     gestionPagesModal()
+    
+    // Rechargement des travaux dans la galerie principale
+    const oldgallery = document.querySelector(".gallery")
+    oldgallery.innerHTML = ""
+    generateWorks(imagesModal)
 }
 
 
@@ -101,6 +102,11 @@ async function submitForm(token, formData) {
         // Actualisation de la page
         imagesModal = await fetchWorks()
         gestionPagesModal()
+
+        // Rechargement des travaux dans la galerie principale après fermeture de la modale
+        const oldgallery = document.querySelector(".gallery")
+        oldgallery.innerHTML = ""
+        generateWorks(imagesModal)
 
         // Ajout du message de succès
         const modalWrapper = document.querySelector(".modal-wrapper")
@@ -248,17 +254,22 @@ function gestionPagesModal() {
                 const file = inputFile.files[0]
                 if (!file) return
 
-                const reader = new FileReader()
-                reader.onload = e => {
-                    previewImg.src = e.target.result
-                    previewImg.style.display = "block"
+                if (file.size > 4 * 1024 * 1024) {
+                    alert("Le fichier est trop volumineux. La taille maximale est de 4 Mo.")
+                    inputFile.value = "" // Réinitialiser le champ input
+                } else {
+                    const reader = new FileReader()
+                    reader.onload = e => {
+                        previewImg.src = e.target.result
+                        previewImg.style.display = "block"
 
-                    // On cache les éléments inutiles après l'upload
-                    uploadIcon.style.display = "none"
-                    btnAddPhotoUp.style.display = "none"
-                    infoText.style.display = "none"
+                        // On cache les éléments inutiles après l'upload
+                        uploadIcon.style.display = "none"
+                        btnAddPhotoUp.style.display = "none"
+                        infoText.style.display = "none"
+                    }
+                    reader.readAsDataURL(file)
                 }
-                reader.readAsDataURL(file)
             })
 
             // Champ input type texte pour le titre
