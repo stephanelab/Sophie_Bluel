@@ -86,6 +86,10 @@ async function deleteWork(workId) {
 // fonction envoi du formulaire
 async function submitForm(token, formData) {
     try {
+        // Suppression du message de succès d'ajout de projet s'il existe
+        const oldMessage = document.querySelector(".success-message")
+        if (oldMessage) oldMessage.remove()
+
         const response = await fetch("http://localhost:5678/api/works", {
             method: "POST",
             headers: {
@@ -195,7 +199,6 @@ function gestionPagesModal() {
             })
             break
         case 2:
-
             // Réaffichage de la flèche gauche sur la première page de la modale
             backModalIcon.classList.add("fa-arrow-left")
 
